@@ -1,61 +1,77 @@
 <!DOCTYPE html>
-@langrtl
-    <html lang="{{ str_replace('_', '-', app()->getLocale()) }}" dir="rtl">
-@else
-    <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-@endlangrtl
+<!--
+Template Name: Materialize - Material Design Admin Template
+Author: PixInvent
+Website: http://www.pixinvent.com/
+Contact: hello@pixinvent.com
+Follow: www.twitter.com/pixinvents
+Like: www.facebook.com/pixinvents
+Purchase: https://themeforest.net/item/materialize-material-design-admin-template/11446068?ref=pixinvent
+Renew Support: https://themeforest.net/item/materialize-material-design-admin-template/11446068?ref=pixinvent
+License: You must have a valid license purchased only from themeforest(the above link) in order to legally use the theme for your project.
+
+-->
+<html class="loading" lang="en" data-textdirection="ltr">
+<!-- BEGIN: Head-->
+
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>@yield('title', app_name())</title>
-    <meta name="description" content="@yield('meta_description', 'Laravel 5 Boilerplate')">
-    <meta name="author" content="@yield('meta_author', 'Anthony Rappa')">
     @yield('meta')
-
-    {{-- See https://laravel.com/docs/5.5/blade#stacks for usage --}}
     @stack('before-styles')
-
-    <!-- Check if the language is set to RTL, so apply the RTL layouts -->
-    <!-- Otherwise apply the normal LTR layouts -->
     {{ style(mix('css/backend.css')) }}
-
     @stack('after-styles')
+    @include('backend.includes.meta')
 </head>
+<!-- END: Head-->
+<body class="vertical-layout page-header-light vertical-menu-collapsible vertical-menu-nav-dark 2-columns  "
+      data-open="click" data-menu="vertical-menu-nav-dark" data-col="2-columns">
 
-<body class="{{ config('backend.body_classes') }}">
-    @include('backend.includes.header')
+@include('backend.includes.headers')
+@include('backend.includes.sidenav')
 
-    <div class="app-body">
-        @include('backend.includes.sidebar')
+<!-- BEGIN: Page Main-->
+<div id="main">
+    <div class="row">
+        <div class="col s12">
+            <div class="container animate fadeLeft">
+                {!! Breadcrumbs::render() !!}
+                @yield('content')
+            </div>
+        </div>
+    </div>
+</div>
+<!-- END: Page Main-->
 
-        <main class="main">
-            @include('includes.partials.demo')
-            @include('includes.partials.logged-in-as')
-            {!! Breadcrumbs::render() !!}
+<!-- Theme Customizer -->
 
-            <div class="container-fluid">
-                <div class="animated fadeIn">
-                    <div class="content-header">
-                        @yield('page-header')
-                    </div><!--content-header-->
+<a href="#"
+   data-target="theme-cutomizer-out"
+   class="btn btn-customizer pink accent-2 white-text sidenav-trigger theme-cutomizer-trigger"
+><i class="material-icons">settings</i></a
+>
 
-                    @include('includes.partials.messages')
-                    @yield('content')
-                </div><!--animated-->
-            </div><!--container-fluid-->
-        </main><!--main-->
+@include('backend.includes.themecustomizer')
 
-        @include('backend.includes.aside')
-    </div><!--app-body-->
+<!-- BEGIN: Footer-->
+@include('backend.includes.footers')
+<!-- END: Footer-->
+<!-- BEGIN VENDOR JS-->
 
-    @include('backend.includes.footer')
+<!-- BEGIN THEME  JS-->
 
-    <!-- Scripts -->
-    @stack('before-scripts')
-    {!! script(mix('js/manifest.js')) !!}
-    {!! script(mix('js/vendor.js')) !!}
-    {!! script(mix('js/backend.js')) !!}
-    @stack('after-scripts')
+<script src="{{ asset('js/custom/custom-script.js') }}" type="text/javascript"></script>
+@stack('before-scripts')
+{!! script(mix('js/manifest.js')) !!}
+{!! script(mix('js/vendor.js')) !!}
+{!! script(mix('js/backend.js')) !!}
+@stack('after-scripts')
+<script src="{{ asset('js/vendors.min.js') }}" type="text/javascript"></script>
+<script src="{{ asset('js/plugins.js') }}" type="text/javascript"></script>
+<script src="{{ asset('js/scripts/customizer.js') }}" type="text/javascript"></script>
+
+<!-- END THEME  JS-->
+<!-- BEGIN PAGE LEVEL JS-->
+<script src="{{ asset('js/scripts/dashboard-modern.js') }}" type="text/javascript"></script>
+<!-- END PAGE LEVEL JS-->
 </body>
+
 </html>
